@@ -1,7 +1,10 @@
-import Joi from '@hapi/joi';
+import JoiBasic from '@hapi/joi';
 import JoiDate from '@hapi/joi-date';
 import mongoose from 'mongoose';
-Joi.date = JoiDate(Joi);
+
+const Joi = JoiBasic.extend(JoiDate);
+
+
 
 const guestSchema = new mongoose.Schema({
   name: {
@@ -55,7 +58,6 @@ function validateGuest(guest) {
     eventDate: Joi.date()
       .format('YYYY-MM-DD')
       .utc()
-      .trim()
       .required()
   });
 

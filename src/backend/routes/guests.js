@@ -12,6 +12,8 @@ router.post('/', async (req, res) => {
   let guest = new Guest(req.body);
   console.log(guest);
   await guest.save();
+
+  res.send(guest);
 });
 
 
