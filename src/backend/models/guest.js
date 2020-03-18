@@ -50,16 +50,16 @@ function validateGuest(guest) {
       .trim()
       .required(),
     email: Joi.string()
-      .min(5)
-      .max(255)
-      .email()
-      .trim()
+    .min(5)
+    .max(255)
+    .email()
+    .trim()
       .required(),
     eventDate: Joi.date()
       .format('YYYY-MM-DD')
       .utc()
       .required()
-  });
+  }).options({ abortEarly: false });
 
   return schema.validate(guest);
 }
