@@ -10,14 +10,10 @@ router.post('/', async (req, res) => {
     error
   } = validateGuest(req.body);
   if (error) {
-    console.log(error);
     return res.status(400).send(error);
   }
 
-      console.log(error);
-
   let guest = new Guest(req.body);
-  console.log(guest);
   await guest.save();
 
   res.send(guest);

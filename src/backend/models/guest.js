@@ -43,22 +43,44 @@ function validateGuest(guest) {
       .min(3)
       .max(26)
       .trim()
-      .required(),
+      .required()
+      .messages({
+        "string.empty": "Please type your name",
+        "string.min": "Name should have at least 3 characters",
+        "string.max": "Name should have maximum 26 characters"
+      }),
     lastName: Joi.string()
       .min(3)
       .max(26)
       .trim()
-      .required(),
+      .required()
+      .messages({
+        "string.empty": "Please type your last name",
+        "string.min": "Last name should have at least 3 characters",
+        "string.max": "Last name should have maximum 26 characters"
+      }),
     email: Joi.string()
-    .min(5)
-    .max(255)
-    .email()
-    .trim()
-      .required(),
+      .min(5)
+      .max(255)
+      .email()
+      .trim()
+      .required()
+      .messages({
+      "string.empty": "Please type your e-mail",
+      "string.min": "E-mail should have at least 3 characters",
+      "string.max": "E-mail should have maximum 255 characters",
+      "string.email": "E-mail should have following format: id@domain"
+    }),
     eventDate: Joi.date()
       .utc()
       .required()
-  }).options({ abortEarly: false });
+      .messages({
+        "date.base": "Date should have following format: DD/MM/YYYY",
+        "date.empty": "Please type event date"
+      }),
+  }).options({
+    abortEarly: false
+  });
 
   return schema.validate(guest);
 }

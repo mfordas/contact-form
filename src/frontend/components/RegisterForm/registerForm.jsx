@@ -76,18 +76,18 @@ class RegisterForm extends React.Component {
         {this.state.confirm === false ? <div className="registerCard">
           <p>Welcome in contact form for our super misterious event! Type your name, last name, e-mail and date and keep your fingers crossed that we will use it in proper way!</p>
           <form>
+            <p>Name</p>
             <input onChange={e => this.setState({ name: e.target.value })}></input>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("name")}`} /> : null}
-            <p>Name</p>
+            <p>Last name</p>
             <input onChange={e => this.setState({ lastName: e.target.value })}></input>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("lastName")}`} /> : null}
-            <p>Last name</p>
+            <p>E-mail</p>
             <input onChange={e => this.setState({ email: e.target.value })}></input>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("email")}`} /> : null}
-            <p>E-mail</p>
+            <p>Date</p>
             <DatePicker dateFormat="dd/MM/yyyy" selected={this.state.eventDate} onChange={this.handleChange}/>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("eventDate")}`} /> : null}
-            <p>Date</p>
             <button className="button" onClick={this.onButtonSubmit}>Register</button>
           </form>
         </div> : <Confirm name={this.state.name} email={this.state.email} />}
