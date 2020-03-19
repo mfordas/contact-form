@@ -56,7 +56,6 @@ function validateGuest(guest) {
     .trim()
       .required(),
     eventDate: Joi.date()
-      .format('YYYY-MM-DD')
       .utc()
       .required()
   }).options({ abortEarly: false });

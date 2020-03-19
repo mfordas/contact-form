@@ -4,6 +4,9 @@ import setHeaders from '../../utils/setHeaders';
 import '../../main_styling/main_styling.scss';
 import Confirm from './confirm';
 import ErrorMessage from '../ReusableComponents/ErrorMessage';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class RegisterForm extends React.Component {
 
@@ -16,7 +19,8 @@ class RegisterForm extends React.Component {
       email: '',
       eventDate: '',
       confirm: false,
-      errors: ''
+      errors: '',
+      invalidData: true
     }
   }
 
@@ -29,7 +33,7 @@ class RegisterForm extends React.Component {
           name: this.state.name,
           lastName: this.state.lastName,
           email: this.state.email,
-          eventDate: this.state.date
+          eventDate: this.state.eventDate
         },
         headers: setHeaders()
       });
@@ -48,20 +52,23 @@ class RegisterForm extends React.Component {
     }
   }
 
-
   onButtonSubmit = async e => {
     e.preventDefault();
     console.log(this.state);
     this.postGuest();
   }
 
-  errorHandler = data => {
-    return <ErrorMessage message={`${data}`} />
-  }
-
   messageHandler = errorsType => {
-  return this.state.errors.forEach(error => error.path[0] === errorsType ? error.message : null);
-  }
+    let message;
+    this.state.errors.forEach(error => error.path[0] === errorsType ? message = error.message : null);
+    if(message){return message} else {return ''}};
+
+  handleChange = date => {
+    this.setState({
+      eventDate: date
+    });
+  };
+
 
   render() {
     return (
@@ -78,7 +85,7 @@ class RegisterForm extends React.Component {
             <input onChange={e => this.setState({ email: e.target.value })}></input>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("email")}`} /> : null}
             <p>E-mail</p>
-            <input onChange={e => this.setState({ date: e.target.value })}></input>
+            <DatePicker dateFormat="dd/MM/yyyy" selected={this.state.eventDate} onChange={this.handleChange}/>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("eventDate")}`} /> : null}
             <p>Date</p>
             <button className="button" onClick={this.onButtonSubmit}>Register</button>
