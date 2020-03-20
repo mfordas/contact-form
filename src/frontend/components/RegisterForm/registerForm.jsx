@@ -47,7 +47,7 @@ class RegisterForm extends React.Component {
     }
     catch (error) {
       this.setState({ errors: error.response.data.details });
-      console.error('Error Registration:', error.response);
+      console.error('Error Registration:', error.message);
       this.setState({ invalidData: true });
     }
   }
