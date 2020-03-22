@@ -1,10 +1,8 @@
-import JoiBasic from '@hapi/joi';
-import JoiDate from '@hapi/joi-date';
-import mongoose from 'mongoose';
+import JoiBasic from "@hapi/joi";
+import JoiDate from "@hapi/joi-date";
+import mongoose from "mongoose";
 
 const Joi = JoiBasic.extend(JoiDate);
-
-
 
 const guestSchema = new mongoose.Schema({
   name: {
@@ -12,7 +10,7 @@ const guestSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 255,
     trim: true,
-    default: 'Name',
+    default: "Name",
     required: true
   },
   lastName: {
@@ -20,14 +18,13 @@ const guestSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 255,
     trim: true,
-    default: 'LastName',
+    default: "LastName",
     required: true
   },
   email: {
     type: String,
     minlength: 5,
     maxlength: 255,
-    unique: true,
     trim: true,
     required: true
   },
@@ -66,18 +63,18 @@ function validateGuest(guest) {
       .trim()
       .required()
       .messages({
-      "string.empty": "Please type your e-mail",
-      "string.min": "E-mail should have at least 3 characters",
-      "string.max": "E-mail should have maximum 255 characters",
-      "string.email": "E-mail should have following format: id@domain"
-    }),
+        "string.empty": "Please type your e-mail",
+        "string.min": "E-mail should have at least 3 characters",
+        "string.max": "E-mail should have maximum 255 characters",
+        "string.email": "E-mail should have following format: id@domain"
+      }),
     eventDate: Joi.date()
       .utc()
       .required()
       .messages({
         "date.base": "Date should have following format: DD/MM/YYYY",
         "date.empty": "Please type event date"
-      }),
+      })
   }).options({
     abortEarly: false
   });
@@ -87,7 +84,4 @@ function validateGuest(guest) {
 
 const guest = guestSchema;
 
-export {
-  guest,
-  validateGuest
-}
+export { guest, validateGuest };

@@ -3,7 +3,7 @@ const ExtensionBase = {
   statics: () => {},
   query: () => {},
   indexes: () => {},
-  virtuals: () => {},
+  virtuals: () => {}
 };
 
 const Guest = {
@@ -11,9 +11,7 @@ const Guest = {
   statics: () => {},
   query: () => {},
   indexes: () => {},
-  virtuals: () => {},
+  virtuals: () => {}
 };
-
-
 
 export default { ExtensionBase, Guest };

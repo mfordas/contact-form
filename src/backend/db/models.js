@@ -1,5 +1,5 @@
-import {guest} from '../models/guest.js';
+import { guest } from "../models/guest.js";
 
 export default {
- guest
+  guest
 };
