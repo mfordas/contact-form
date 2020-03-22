@@ -24,10 +24,13 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
     "node-sass": "^4.13.1",
     "nodemon": "^1.19.3",
     "prettier": "1.18.2",
+    "react-test-renderer": "^16.13.1",
     "sass-loader": "^8.0.0"
   },
   "scripts": {
@@ -36,7 +39,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "mon": "nodemon --experimental-modules ./src/backend/app.js",
-    "dev": "concurrently -n react,express -k \"npm run start\" \"npm run mon\""
+    "dev": "concurrently -n react,express -k \"npm run start\" \"npm run mon\"",
+    "format": "prettier --ignore-path .gitignore --write \"./**/*.{js,json,scss,html}\""
   },
   "eslintConfig": {
     "extends": "react-app"

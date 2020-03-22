@@ -20,7 +20,7 @@ class RegisterForm extends React.Component {
       eventDate: '',
       confirm: false,
       errors: '',
-      invalidData: true
+      invalidData: false
     }
   }
 
@@ -54,39 +54,47 @@ class RegisterForm extends React.Component {
 
   onButtonSubmit = async e => {
     e.preventDefault();
+    await this.postGuest();
     console.log(this.state);
-    this.postGuest();
   }
 
   messageHandler = errorsType => {
     let message;
     this.state.errors.forEach(error => error.path[0] === errorsType ? message = error.message : null);
-    if(message){return message} else {return ''}};
+    if (message) { return message } else { return '' }
+  };
 
   handleChange = date => {
     this.setState({
-      eventDate: date
+      eventDate: new Date(date)
     });
   };
 
 
   render() {
+    const {
+      name,
+      lastName,
+      email,
+      eventDate
+    } = this.state
+
     return (
       <div className="container">
         {this.state.confirm === false ? <div className="registerCard">
           <p>Welcome in contact form for our super misterious event! Type your name, last name, e-mail and date and keep your fingers crossed that we will use it in proper way!</p>
           <form>
             <p>Name</p>
-            <input onChange={e => this.setState({ name: e.target.value })}></input>
+            <input onChange={e => this.setState({ name: e.target.value })} value={name}></input>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("name")}`} /> : null}
             <p>Last name</p>
-            <input onChange={e => this.setState({ lastName: e.target.value })}></input>
+            <input onChange={e => this.setState({ lastName: e.target.value })} value={lastName}></input>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("lastName")}`} /> : null}
             <p>E-mail</p>
-            <input onChange={e => this.setState({ email: e.target.value })}></input>
+            <input onChange={e => this.setState({ email: e.target.value })} value={email}></input>
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("email")}`} /> : null}
             <p>Date</p>
-            <DatePicker dateFormat="dd/MM/yyyy" selected={this.state.eventDate} onChange={this.handleChange}/>
+            <DatePicker utcOffset={0} dateFormat="dd/MM/yyyy" selected={this.state.eventDate} onChange={this.handleChange} value={eventDate} />
             {this.state.invalidData && this.state.errors ? <ErrorMessage message={`${this.messageHandler("eventDate")}`} /> : null}
             <button className="button" onClick={this.onButtonSubmit}>Register</button>
           </form>
