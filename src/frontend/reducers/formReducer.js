@@ -1,4 +1,7 @@
-import { SEND_FORM } from '../actions/types';
+import {
+    SEND_FORM,
+    RESTART_FORM
+} from '../actions/types';
 
 const initialState = {
     form: {},
@@ -8,16 +11,21 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case SEND_FORM:
             return {
                 ...state,
                 guest: action.payload,
-                invalidData: action.invalidData,
-                errors: action.errors,
-                confirm: action.confirm
+                    invalidData: action.invalidData,
+                    errors: action.errors,
+                    confirm: action.confirm
             };
-        default:
-            return state;
+        case RESTART_FORM:
+            return {
+                ...state,
+                confirm: action.confirm
+            }
+            default:
+                return state;
     }
 }

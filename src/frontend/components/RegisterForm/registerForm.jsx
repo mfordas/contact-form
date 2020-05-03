@@ -31,7 +31,6 @@ class RegisterForm extends React.Component {
         eventDate: this.state.eventDate 
     }
     await this.props.postGuest(guest);
-    console.log(this.state);
   }
 
   messageHandler = errorsType => {
@@ -45,7 +44,6 @@ class RegisterForm extends React.Component {
       eventDate: new Date(date)
     });
   };
-
 
   render() {
     const {
@@ -74,7 +72,7 @@ class RegisterForm extends React.Component {
             {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.messageHandler("eventDate")}`} /> : null}
             <button className="button" onClick={this.onButtonSubmit}>Register</button>
           </form>
-        </div> : <Confirm name={this.state.name} email={this.state.email} />}
+        </div> : <Confirm name={this.state.name} />}
       </div>
     );
   }
@@ -82,15 +80,15 @@ class RegisterForm extends React.Component {
 
 RegisterForm.propTypes = {
   postGuest: PropTypes.func.isRequired,
-  confirm: PropTypes.bool.isRequired,
-  invalidData: PropTypes.bool.isRequired,
-  errors: PropTypes.array.isRequired
-}
+  confirm: PropTypes.bool,
+  invalidData: PropTypes.bool,
+  errors: PropTypes.array
+};
 
 const mapStateToProps = state => ({
   confirm: state.form.confirm,
   invalidData: state.form.invalidData,
   errors: state.form.errors
-})
+});
 
 export default connect(mapStateToProps, { postGuest })(RegisterForm);

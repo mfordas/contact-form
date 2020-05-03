@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import {
-    SEND_FORM
+    SEND_FORM, RESTART_FORM
 } from './types';
 import setHeaders from '../utils/setHeaders';
 
@@ -38,4 +38,12 @@ export const postGuest = guest => async (dispatch) => {
             confirm: false
         })
     }
+};
+
+
+export const restartForm = () => dispatch => {
+    dispatch({
+        type: RESTART_FORM,
+        confirm: false
+    })
 };
