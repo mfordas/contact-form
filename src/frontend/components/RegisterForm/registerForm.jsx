@@ -25,24 +25,54 @@ class RegisterForm extends React.Component {
   onButtonSubmit = async e => {
     e.preventDefault();
     const guest = {
-        name: this.state.name,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        eventDate: this.state.eventDate 
+      name: this.state.name,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      eventDate: this.state.eventDate
     }
     await this.props.postGuest(guest);
   }
-
-  messageHandler = errorsType => {
-    let message;
-    this.props.errors.forEach(error => error.path[0] === errorsType ? message = error.message : null);
-    if (message) { return message } else { return '' }
-  };
 
   handleChange = date => {
     this.setState({
       eventDate: new Date(date)
     });
+  };
+
+  nameValidate = () => {
+    let message;
+    if ((this.state.name.length < 3 || this.state.name.length > 26 ) && this.props.invalidData) {
+      message = 'Name should have between 3 and 26 characters';
+      return message;
+    }
+    else { return '' }
+  };
+
+  lastnameValidate = () => {
+    let message;
+    if ((this.state.lastName.length < 3 || this.state.lastName.length > 26 ) && this.props.invalidData) {
+      message = 'Last name should have between 3 and 26 characters';
+      return message;
+    }
+    else { return '' }
+  };
+
+  emailValidate = () => {
+    let message;
+    if ((this.state.email.length < 5 || this.state.email.includes('@')===false || this.state.email.includes('.')===false) && this.props.invalidData) {
+      message = 'Type e-mail in proper format: id@domain';
+      return message;
+    }
+    else { return '' }
+  };
+
+  dateValidate = () => {
+    let message;
+    if (this.state.eventDate === '' && this.props.invalidData) {
+      message = 'Type date in proper format: dd/mm/yyyy';
+      return message;
+    }
+    else { return '' }
   };
 
   render() {
@@ -60,16 +90,16 @@ class RegisterForm extends React.Component {
           <form>
             <p>Name</p>
             <input onChange={e => this.setState({ name: e.target.value })} value={name}></input>
-            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.messageHandler("name")}`} /> : null}
+            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.nameValidate()}`} /> : null}
             <p>Last name</p>
             <input onChange={e => this.setState({ lastName: e.target.value })} value={lastName}></input>
-            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.messageHandler("lastName")}`} /> : null}
+            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.lastnameValidate()}`} /> : null}
             <p>E-mail</p>
             <input onChange={e => this.setState({ email: e.target.value })} value={email}></input>
-            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.messageHandler("email")}`} /> : null}
+            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.emailValidate()}`} /> : null}
             <p>Date</p>
             <DatePicker utcOffset={0} dateFormat="dd/MM/yyyy" selected={this.state.eventDate} onChange={this.handleChange} value={eventDate} />
-            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.messageHandler("eventDate")}`} /> : null}
+            {this.props.invalidData && this.props.errors ? <ErrorMessage message={`${this.dateValidate()}`} /> : null}
             <button className="button" onClick={this.onButtonSubmit}>Register</button>
           </form>
         </div> : <Confirm name={this.state.name} />}
