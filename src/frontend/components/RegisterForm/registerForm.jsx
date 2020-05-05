@@ -9,7 +9,7 @@ import { postGuest } from '../../actions/formActions';
 
 import "react-datepicker/dist/react-datepicker.css";
 
-class RegisterForm extends React.Component {
+export class RegisterForm extends React.Component {
 
   constructor(props) {
     super(props)
@@ -30,6 +30,7 @@ class RegisterForm extends React.Component {
       email: this.state.email,
       eventDate: this.state.eventDate
     }
+    console.log(guest);
     await this.props.postGuest(guest);
   }
 
@@ -86,7 +87,7 @@ class RegisterForm extends React.Component {
     return (
       <div className="container">
         {this.props.confirm === false ? <div className="registerCard">
-          <p>Welcome in contact form for our super misterious event! Type your name, last name, e-mail and date and keep your fingers crossed that we will use it in proper way!</p>
+          <p>Welcome in contact form for our super mysterious event! Type your name, last name, e-mail and date and keep your fingers crossed that we will use it in proper way!</p>
           <form>
             <p>Name</p>
             <input onChange={e => this.setState({ name: e.target.value })} value={name}></input>
